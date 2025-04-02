@@ -1,0 +1,10 @@
+# Convert categorical variables
+gender_map = {'M': 0, 'F': 1}
+student_data['gender'] = student_data['gender'].map(gender_map)
+
+# Define features and target
+X = student_data[['age', 'gender', 'gpa', 'attendance_rate', 'financial_aid', 'study_hours', 'extracurricular']]
+y = student_data['enrolled_next_semester']
+
+# Split data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
