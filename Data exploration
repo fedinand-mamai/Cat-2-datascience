@@ -1,0 +1,4 @@
+print(student_data.head())
+print(student_data.describe())
+sns.pairplot(student_data, hue='enrolled_next_semester')
+plt.show()
