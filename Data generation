@@ -1,0 +1,28 @@
+np.random.seed(42)
+n_students = 500
+
+# Generating features
+student_id = np.arange(1, n_students + 1)
+age = np.random.randint(17, 26, n_students)
+gender = np.random.choice(['M', 'F'], n_students)
+gpa = np.clip(np.random.normal(3.0, 0.5, n_students), 0.0, 4.0)
+attendance_rate = np.random.uniform(60, 100, n_students)
+financial_aid = np.random.choice([0, 1], n_students, p=[0.7, 0.3])
+study_hours = np.random.uniform(5, 20, n_students)
+extracurricular = np.random.randint(0, 6, n_students)
+
+# Compute enrollment probability
+linear_combination = (
+    0.8 * gpa + 0.05 * attendance_rate + 0.1 * study_hours +
+    0.5 * financial_aid - 0.2 * extracurricular - 10
+)
+probabilities = 1 / (1 + np.exp(-linear_combination))  # Sigmoid function
+enrolled_next_semester = (np.random.rand(n_students) < probabilities).astype(int)
+
+# Create DataFrame
+student_data = pd.DataFrame({
+    'student_id': student_id, 'age': age, 'gender': gender, 'gpa': gpa,
+    'attendance_rate': attendance_rate, 'financial_aid': financial_aid,
+    'study_hours': study_hours, 'extracurricular': extracurricular,
+    'enrolled_next_semester': enrolled_next_semester
+})
